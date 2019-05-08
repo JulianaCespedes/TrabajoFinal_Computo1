@@ -9,16 +9,16 @@ db = Database('Resultados.db')
 def extraer_dato(query):
     db.execute(query)
     row = db.fetchone()
-    vel = []
+    param = []
     x = []
     y = []
 
     while row is not None:
-        vel.append(row[0])
+        param.append(row[0])
         x.append(row[1])
         y.append(row[2])
         row = db.fetchone()
-    return vel, x, y
+    return param, x, y
 
 def graficar ():
     def data_gen(x=0):
@@ -91,8 +91,8 @@ def graficar2(array,name,name2):
         param,x,y = extraer_dato('SELECT '+name2+', distancia_maxima, altura_maxima FROM resultados\
             WHERE '+name+' = '+str(i)+' AND distancia = 3.0 ')
 
-        plt.figure('Figure 2')
-        plt.suptitle(u''+name2+' vs Posición')
+        plt.figure('Figure.')
+        plt.suptitle(u''+name2+' vs posicion')
 
         plt.subplot(3,2,k)
         plt.plot(param,y, color="blue",linestyle="",marker="o",label=r"Grafica1")
