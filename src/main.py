@@ -1,6 +1,4 @@
-import math
-import numpy as np
-
+from lib.funciones import *
 from lib.mparab import create_data
 from lib.graficas import graficar, graficar2
 create_data()
@@ -16,7 +14,10 @@ i = 5
 while i != 4:
     i = int(input())
     if i == 1:
-        graficar()
+        graficar(data_gen,data_gen2,300,100)
+        graficar(data_gen3,data_gen4,90,20)
+        graficar(data_gen5,data_gen6,60,15)
+        graficar(data_gen7,data_gen8,25,15)
     elif i == 2:
         graficar2([30,45,90],'angulo','velocidad')
     elif i == 3:

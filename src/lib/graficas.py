@@ -20,23 +20,10 @@ def extraer_dato(query):
         row = db.fetchone()
     return param, x, y
 
-def graficar ():
-    def data_gen(x=0):
-        contador = 0
-        while contador < 102:
-            contador += 1
-            yield 30 + ((25 * np.sin(0.785398)) * (4.0316/100)* contador), (10 + ((25 * np.cos(0.785398)) * (4.0316/100)* contador)) - ((9.8 * ((4.0316/100)* contador) ** 2) / 2)
-    def data_gen2(x=0):
-        contador = 0
-        while contador < 102:
-            contador += 1
-            yield 30 + ((50 * np.sin(0.785398)) * (7.3434/100)* contador), (10 + ((50 * np.cos(0.785398)) * (7.3434/100)* contador)) - ((9.8 * ((7.3434/100)* contador) ** 2) / 2)
-
+def graficar (data_gen,data_gen2,x2,y2):
     x1 = 0
-    x2 = 300
     y1 = 0
-    y2 = 200
-
+    
     def init(xmin=x1,xmax=x2,ymin=y1,ymax=y2):
         ax.set_ylim(ymin,ymax)
         ax.set_xlim(xmin,xmax)
@@ -77,7 +64,7 @@ def graficar ():
                                 repeat=False, init_func=init)
     an2 = animation.FuncAnimation(fig3, run2, data_gen2, blit=False, interval=100,
                                 repeat=False, init_func=init)
-    plt.suptitle('Prueba 1')
+    plt.suptitle('Prueba')
     plt.xlabel('x [m]')
     plt.ylabel('y [m]')
     plt.xticks(np.arange(0,300+1,30))
@@ -86,13 +73,12 @@ def graficar ():
 
 def graficar2(array,name,name2):    
     k = 1
+    plt.figure('Graficas.')
+    plt.suptitle(u''+name2+' vs posicion')   
 
     for i in array:
         param,x,y = extraer_dato('SELECT '+name2+', distancia_maxima, altura_maxima FROM resultados\
             WHERE '+name+' = '+str(i)+' AND distancia = 3.0 ')
-
-        plt.figure('Figure.')
-        plt.suptitle(u''+name2+' vs posicion')
 
         plt.subplot(3,2,k)
         plt.plot(param,y, color="blue",linestyle="",marker="o",label=r"Grafica1")
@@ -100,6 +86,7 @@ def graficar2(array,name,name2):
 
         plt.xlabel(name2)
         plt.ylabel('y [m]')
+        plt.legend([name+'='+str(i)])
         plt.grid()
 
         plt.subplot(3,2,k+1)
@@ -108,6 +95,7 @@ def graficar2(array,name,name2):
 
         plt.xlabel(name2)
         plt.ylabel('x [m]')
+        plt.legend([name+'='+str(i)])
         plt.grid()
 
         k = k + 2
